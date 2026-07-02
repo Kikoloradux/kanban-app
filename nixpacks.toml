@@ -1,11 +1,11 @@
 [phases.setup]
-nixPkgs = ["php84", "php84Extensions.pdo_mysql", "php84Extensions.mysqli", "php84Extensions.zip", "composer"]
+nixPkgs = ["php84", "php84Extensions.pdo_mysql", "php84Extensions.mysqli", "php84Extensions.zip", "php84Extensions.mbstring", "composer"]
 
 [phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader"]
+cmds = ["cd backend && composer install --no-dev --optimize-autoloader"]
 
 [phases.build]
-cmds = ["php bin/console cache:clear --env=prod"]
+cmds = ["cd backend && php bin/console cache:clear --env=prod"]
 
 [start]
-cmd = "php -S 0.0.0.0:$PORT -t public"
+cmd = "./start.sh"
