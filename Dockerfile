@@ -17,15 +17,17 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /app
 
-# Copiar archivos
-COPY backend/ ./backend/
-COPY frontend/ ./frontend/
+# Copiar todo el proyecto
+COPY . .
 
-# Instalar dependencias sin scripts
+# Instalar dependencias del backend
 RUN cd backend && composer install --no-dev --optimize-autoloader --no-scripts
 
 # Limpiar caché
 RUN cd backend && php bin/console cache:clear --env=prod --no-warmup || true
+
+# Crear directorios necesarios
+RUN mkdir -p backend/var/cache backend/var/log && chmod -R 777 backend/var
 
 EXPOSE 8000
 
