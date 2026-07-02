@@ -13,22 +13,20 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install pdo_mysql mysqli zip mbstring
 
 # Instalar Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos del backend
+# Copiar archivos
 COPY backend/ ./backend/
-
-# Instalar dependencias
-RUN cd backend && composer install --no-dev --optimize-autoloader
-
-# Copiar el frontend (opcional, para servir archivos estáticos)
 COPY frontend/ ./frontend/
 
-# Exponer puerto
+# Instalar dependencias sin scripts
+RUN cd backend && composer install --no-dev --optimize-autoloader --no-scripts
+
+# Limpiar caché
+RUN cd backend && php bin/console cache:clear --env=prod --no-warmup || true
+
 EXPOSE 8000
 
-# Comando de inicio
 CMD cd backend && php -S 0.0.0.0:$PORT -t public
