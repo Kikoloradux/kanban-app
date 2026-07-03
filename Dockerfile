@@ -20,7 +20,7 @@ WORKDIR /app
 COPY . .
 
 # Instalar dependencias de Composer
-RUN cd /app/backend && APP_ENV=prod composer install --no-dev --optimize-autoloader --no-interaction
+RUN cd /app/backend && APP_ENV=prod composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Limpiar caché
 RUN cd /app/backend && APP_ENV=prod php bin/console cache:clear --no-warmup || true
