@@ -20,18 +20,15 @@ WORKDIR /app
 # Copiar todo el proyecto
 COPY . .
 
-# Instalar dependencias del backend (en la carpeta correcta)
-RUN cd /app/backend && composer install --no-dev --optimize-autoloader --no-scripts
+# Instalar dependencias del backend
+RUN cd backend && composer install --no-dev --optimize-autoloader --no-scripts
 
 # Limpiar caché
-RUN cd /app/backend && php bin/console cache:clear --env=prod --no-warmup || true
+RUN cd backend && php bin/console cache:clear --env=prod --no-warmup || true
 
 # Crear directorios necesarios
-RUN mkdir -p /app/backend/var/cache /app/backend/var/log && chmod -R 777 /app/backend/var
-
-# Verificar que los archivos existen
-RUN ls -la /app/backend/vendor/autoload.php
+RUN mkdir -p backend/var/cache backend/var/log && chmod -R 777 backend/var
 
 EXPOSE 8000
 
-CMD cd /app/backend && php -S 0.0.0.0:$PORT -t public
+CMD cd backend && php -S 0.0.0.0:$PORT -t public
