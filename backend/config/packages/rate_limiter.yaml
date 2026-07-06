@@ -1,0 +1,6 @@
+framework:
+    rate_limiter:
+        register_limiter:
+            policy: 'token_bucket'
+            limit: 3
+            rate: { interval: '1 hour' }
