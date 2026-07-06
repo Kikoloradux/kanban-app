@@ -1,7 +1,25 @@
-
 framework:
-    secret: 'c8b0fe0bda8c3f33ecd1cba877d3ab8b9e53d3bd92771b0adee40494049df016juanluis'
-    session: true
-    form: ~
-    csrf_protection: false
+    secret: '%env(APP_SECRET)%'
+
+
+    session:
+        cookie_secure: true
+        cookie_httponly: true
+        cookie_samesite: 'lax'
+        gc_maxlifetime: 3600
+        handler_id: null
+
+    csrf_protection: true
+    form:
+        csrf_protection:
+            enabled: true
+            field_name: _token
+
     http_method_override: false
+    handle_all_throwables: true
+
+    validation:
+        email_validation_mode: html5
+
+    php_errors:
+        log: true
