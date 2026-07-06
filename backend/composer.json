@@ -26,9 +26,6 @@
         "twig/extra-bundle": "^2.12|^3.24",
         "twig/twig": "^2.12|^3.27"
     },
-    "require-dev": {
-        "symfony/maker-bundle": "^1.0"
-    },
     "config": {
         "allow-plugins": {
             "php-http/discovery": true,
