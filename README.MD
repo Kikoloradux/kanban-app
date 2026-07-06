@@ -58,7 +58,7 @@ Backend:
 http://localhost:8000
 Credenciales usuario de prueba:
 usuario: test@test.com
-contraseña: test123
+contraseña: 123456
 Objetivo del proyecto:
 El objetivo fue desarrollar una aplicación trabajando con contenedores, APIs REST, persistencia en base de datos, autenticación JWT y una interfaz moderna basada en React.
 Autor: Juan Luis Gamito
