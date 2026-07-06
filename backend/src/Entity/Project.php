@@ -22,12 +22,10 @@ class Project
     #[ORM\Column(type: "text", nullable: true)]
     private ?string $description = null;
 
-    // 👇 RELACIÓN CON USER (CLAVE PARA TU TAREA)
     #[ORM\ManyToOne(inversedBy: 'projects')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    // 👇 RELACIÓN CON TASKS
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Task::class, cascade: ['remove'])]
     private Collection $tasks;
 

@@ -135,8 +135,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        // Si usas un campo plainPassword temporal, límpialo aquí
-        // $this->plainPassword = null;
+        
     }
 
     public function __serialize(): array
