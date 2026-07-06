@@ -55,7 +55,7 @@ URLs
 Frontend:
 http://localhost:3000
 Backend:
-http://localhost:8000
+http://localhost:8080
 Credenciales usuario de prueba:
 usuario: test@test.com
 contraseña: 123456
