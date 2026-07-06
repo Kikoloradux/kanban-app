@@ -18,6 +18,20 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
+# Copiar todo el proyecto
+COPY . .
+
+# Instalar dependencias del backend
+RUN cd backend && composer install --no-dev --optimize-autoloader
+
+# Crear carpeta para JWT y generar claves (SOLUCIÓN DEFINITIVA)
+RUN mkdir -p backend/config/jwt && \
+    cd backend && \
+    php bin/console lexik:jwt:generate-keypair --skip-if-exists
+
+# Limpiar caché
+RUN cd backend && php bin/console cache:clear --env=prod || true
+
 EXPOSE 8000
 
-CMD bash -c "composer install --no-interaction && php -S 0.0.0.0:8000 -t public"
+CMD cd backend && php -S 0.0.0.0:8080 -t public
