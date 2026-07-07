@@ -35,3 +35,9 @@ RUN cd backend && php bin/console cache:clear --env=prod || true
 EXPOSE 8000
 
 CMD cd backend && php -S 0.0.0.0:8080 -t public
+
+# Generar claves JWT automáticamente
+RUN mkdir -p config/jwt && \
+    php bin/console lexik:jwt:generate-keypair --skip-if-exists || true
+
+RUN chmod 644 config/jwt/*.pem || true
