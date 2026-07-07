@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
 use App\Entity\User;
+use App\Exception\UserAlreadyExistsException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -23,7 +26,7 @@ class UserService
     {
         $existingUser = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
         if ($existingUser) {
-            throw new \Exception('Ya existe un usuario con este email');
+            throw new UserAlreadyExistsException($email);
         }
 
         $user = new User();
